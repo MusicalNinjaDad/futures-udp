@@ -132,7 +132,7 @@ where
     /// In the default implementation, the listener is guaranteed to be constructed to be
     /// non-blocking and have non-exclusive access to the bound address; if either of these system
     /// calls fails to take effect an [io::ErrorKind::Unsupported] will be returned.
-    /// 
+    ///
     /// #### Note
     /// - It is not possible to validate the non-blocking status has been correctly set on Windows
     ///   or wasm32-wasip1 so this check is skipped in those cases and success is assumed.

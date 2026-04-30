@@ -1,0 +1,17 @@
+[package]
+name = "try_v2_xtasks"
+version = "0.0.1"
+edition = "2024"
+publish = false
+
+[dependencies]
+clap = { version = "4.6.0", features = ["derive"] }
+exit_safely = "0.2.1"
+try_v2 = "0.4.2"
+
+[dev-dependencies]
+dircpy = "0.3.20"
+tempfile = "3.27.0"
+
+[build-dependencies]
+autocfg = "1.5.0"

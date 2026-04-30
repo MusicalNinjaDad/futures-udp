@@ -12,14 +12,14 @@
 //! downstream crate, I'll add them here soon so to make sure this never breaks)
 //!
 //! ## Why?
+//! - Working with a bare `UdpSocket` is "a bit hard", doing it async is "a bit more hard".
+//!   Adding `Stream` & `Sink` semantics makes it "nice".
 //! - I usually don't want to be forced to bring `tokio` into my dependency tree unless I want
 //!   to use it as my runtime. I think the runtime choice should be left to the final binary.
 //! - `futures-rs` is a lot lighter weight and provided by rust-lang, so I chose that for the base
 //!   traits. They are cross-compatible with `tokio`.
-//! - Working with a bare `UdpSocket` is "a bit hard", doing it async is "a bit more hard".
-//!   Adding `Stream` & `Sink` semantics makes it "nice".
 //! - Despite the docs [futures_net::UdpSocket] creates a blocking socket, which is locked
-//!   for exclusive use. (Opening a ticket TBD)
+//!   for exclusive use. [krircc/futures-net#2](https://github.com/krircc/futures-net/issues/2)
 //!
 //! ## Stability & MSRV
 //!

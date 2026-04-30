@@ -98,9 +98,9 @@ use socket2::{Domain, Type};
 ///
 /// #### Note
 /// - This does NOT have exclusive access to the bound port. If you want to guarantee that
-///   no other processes bind to the same socket vote thumbs up on [issue #5] TODO: implement
+///   no other processes bind to the same socket vote thumbs up on [issue #5] (implement
 ///   `bind_exclusive` etc.)
-/// 
+///
 /// [issue #5]: https://github.com/MusicalNinjaDad/futures-udp/issues/5
 pub struct UdpStream<const BUF_SIZE: usize> {
     /// The underlying, evented Socket.
@@ -315,9 +315,9 @@ impl<const BUF_SIZE: usize> Stream for UdpStream<BUF_SIZE> {
 ///
 /// #### Note
 /// - This does NOT have exclusive access to the bound port. If you want to guarantee that
-///   no other processes bind to the same socket vote thumbs up on [issue #5] TODO: implement
+///   no other processes bind to the same socket vote thumbs up on [issue #5] (implement
 ///   `bind_exclusive` etc.)
-/// 
+///
 /// [issue #5]: https://github.com/MusicalNinjaDad/futures-udp/issues/5
 pub struct UdpSink {
     /// The underlying, evented Socket.

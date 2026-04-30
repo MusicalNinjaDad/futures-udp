@@ -132,10 +132,15 @@ where
     /// In the default implementation, the listener is guaranteed to be constructed to be
     /// non-blocking and have non-exclusive access to the bound address; if either of these system
     /// calls fails to take effect an [io::ErrorKind::Unsupported] will be returned.
+    ///
+    /// #### Note
+    /// - It is not possible to validate the non-blocking status has been correctly set on Windows
+    ///   or wasm32-wasip1 so this check is skipped in those cases and success is assumed.
     fn bind(addr: SocketAddr) -> io::Result<Self> {
         let s2 = socket2::Socket::new(Domain::IPV4, Type::DGRAM, None)?;
         let addr = addr.into();
         s2.set_nonblocking(true)?;
+        #[cfg(any(unix, all(target_os = "wasi", not(target_env = "p1"))))]
         s2.nonblocking()?
             .ok_or(io::Error::from(io::ErrorKind::Unsupported))?;
 

@@ -1,9 +1,10 @@
-name: Deploy Rust
-concurrency: Crates.io
+name: "Publish libs"
 
 on:
-  push: 
-    tags: "v*"
+  release:
+    types: [published]
+
+concurrency: Crates.io
 
 env:
   CARGO_TERM_COLOR: always

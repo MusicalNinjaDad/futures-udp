@@ -1,4 +1,4 @@
-name: "Build binaries & publish libs"
+name: "Publish libs"
 
 on:
   release:

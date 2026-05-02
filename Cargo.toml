@@ -28,7 +28,3 @@ futures-net = {version = "0.6.0", default-features = true }
 
 [build-dependencies]
 autocfg = "1.5.0"
-
-[workspace]
-members = ["xtask"]
-default-members = ["."]

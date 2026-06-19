@@ -26,7 +26,7 @@ jobs:
         channel: ["stable", "beta", "nightly"]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: update rust
       run: rustup update
     - name: Set bootstrap
@@ -41,7 +41,7 @@ jobs:
         channel: ["stable", "beta", "nightly"]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: update rust
       run: rustup update && rustup component add --toolchain ${{ matrix.channel }} clippy
     - name: Set bootstrap
@@ -54,7 +54,7 @@ jobs:
     needs: [test, lint]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Create issue on failure
       if: ${{ github.event_name != 'pull_request' && (needs.test.result == 'failure' || needs.lint.result == 'failure') }}
       env:

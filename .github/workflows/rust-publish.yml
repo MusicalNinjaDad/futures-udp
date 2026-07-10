@@ -1,10 +1,8 @@
-name: "Publish libs"
+name: Deploy Rust
+concurrency: Crates.io
 
 on:
-  release:
-    types: [published]
-
-concurrency: Crates.io
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -14,14 +12,49 @@ jobs:
     permissions:
       contents: read
       issues: write
-    uses: ./.github/workflows/rust-stability.yml
+    uses: ./.github/workflows/rust.yml
 
-  publish:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+    - uses: actions/checkout@v7.0.0
+    - name: install tools
+      uses: taiki-e/install-action@v2.83.0
+      with:
+        tool: |
+          jaq
+          parse-changelog
+    - id: version
+      name: get version
+      run: |
+        v="$(jaq -cr .workspace.package.version Cargo.toml)"
+        echo "version: $v"
+        
+        echo "version=$v" >> $GITHUB_OUTPUT
+        echo "# version $v" >> $GITHUB_STEP_SUMMARY
+    - id: changelog
+      name: validate changelog
+      run: | 
+        echo "## Changelog entry" >> $GITHUB_STEP_SUMMARY
+        echo "$(parse-changelog CHANGELOG.md ${{ steps.version.outputs.version }})" >> $GITHUB_STEP_SUMMARY
+
+  publish_lib:
+    needs:
+      - version
+      - quality-check
+    if: ${{ !(failure() || cancelled()) }}
     environment: crates.io
-    needs: quality-check
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
+    - uses: actions/checkout@v7.0.0
+    # Install manually as different crates may have custom toolchains defined
+    - name: install rust
+      run: rustup set profile default && rustup install
+    # Use OIDC for updating existing crates
     - uses: rust-lang/crates-io-auth-action@c6f97d42243bad5fab37ca0427f495c86d5b1a18 #v1.0.5
       id: auth
     - name: Publish
@@ -29,3 +62,22 @@ jobs:
         CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
       run:
         cargo publish
+
+  github_release:
+    env:
+      GH_TOKEN: ${{ github.token }}
+    permissions:
+      attestations: write
+      contents: write
+    needs:
+      - version
+      - publish_lib
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.0
+      - name: install tools
+        uses: taiki-e/install-action@v2.83.0
+        with:
+          tool: parse-changelog
+      - name: publish release
+        run: parse-changelog CHANGELOG.md ${{ needs.version.outputs.version }} | gh release create v${{ needs.version.outputs.version }} --notes-file -

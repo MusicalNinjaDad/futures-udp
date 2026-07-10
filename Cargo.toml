@@ -27,7 +27,7 @@ futures = { version = "0.3.32", features = ["async-await"] }
 futures-net = { version = "0.6.0", default-features = true }
 
 [build-dependencies]
-build_safely = "0.5.1"
+build_safely = "0.5.2"
 
 [patch.crates-io]
 build_safely = { git = "https://github.com/MusicalNinjaDad/build_safely", branch = "bool_to_result" }

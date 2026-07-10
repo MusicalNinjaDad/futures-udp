@@ -142,6 +142,10 @@ where
         let s2 = socket2::Socket::new(Domain::IPV4, Type::DGRAM, None)?;
         let addr = addr.into();
         s2.set_nonblocking(true)?;
+        #[cfg_attr(
+            all(has_bool_to_result, not(unstable_bool_to_result)),
+            allow(clippy::incompatible_msrv, reason = "stable since 1.98.0")
+        )] // silenced via cfg_attr so we find this when we support stable
         #[cfg(any(unix, all(target_os = "wasi", not(target_env = "p1"))))]
         s2.nonblocking()?
             .ok_or(io::Error::from(io::ErrorKind::Unsupported))?;
@@ -153,6 +157,10 @@ where
         // thereby claiming exclusive interest in all received data.
         // see https://man7.org/linux/man-pages/man7/socket.7.html#:~:text=SO_REUSEADDR
         s2.set_reuse_address(true)?;
+        #[cfg_attr(
+            all(has_bool_to_result, not(unstable_bool_to_result)),
+            allow(clippy::incompatible_msrv, reason = "stable since 1.98.0")
+        )] // silenced via cfg_attr so we find this when we support stable
         s2.reuse_address()?
             .ok_or(io::Error::from(io::ErrorKind::Unsupported))?;
 

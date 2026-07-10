@@ -13,8 +13,8 @@ license = "MIT"
 rust-version = "1.90.0"
 
 [dependencies]
-futures = {version = "0.3.32", default-features = false}
-futures-net = {version = "0.6.0", default-features = false }
+futures = { version = "0.3.32", default-features = false }
+futures-net = { version = "0.6.0", default-features = false }
 
 # feature "all" enables the call to `nonblocking`, which is unavailable on some platforms.
 # That call is gated in our code.
@@ -23,8 +23,11 @@ futures-net = {version = "0.6.0", default-features = false }
 socket2 = { version = "0.6.3", features = ["all"] }
 
 [dev-dependencies]
-futures = {version = "0.3.32", features = ["async-await"]}
-futures-net = {version = "0.6.0", default-features = true }
+futures = { version = "0.3.32", features = ["async-await"] }
+futures-net = { version = "0.6.0", default-features = true }
 
 [build-dependencies]
 build_safely = "0.5.1"
+
+[patch.crates-io]
+build_safely = { git = "https://github.com/MusicalNinjaDad/build_safely", branch = "bool_to_result" }

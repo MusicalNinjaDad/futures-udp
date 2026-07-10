@@ -36,7 +36,7 @@
 //! > This crate makes use of the following experimental features:
 //! >
 //! > - [`#![feature(never_type)]`](https://github.com/rust-lang/rust/issues/35121) [final stages of stabilisation]
-//! > - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [in FCP as of 2026-04-25]
+//! > - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [stabilisation targeted 1.98.0]
 //! >
 //! > This list includes any unstable features used by direct & transitive dependencies (currently, none).
 //! >
@@ -142,6 +142,10 @@ where
         let s2 = socket2::Socket::new(Domain::IPV4, Type::DGRAM, None)?;
         let addr = addr.into();
         s2.set_nonblocking(true)?;
+        #[cfg_attr(
+            all(has_bool_to_result, not(unstable_bool_to_result)),
+            allow(clippy::incompatible_msrv, reason = "stable since 1.98.0")
+        )] // silenced via cfg_attr so we find this when we support stable
         #[cfg(any(unix, all(target_os = "wasi", not(target_env = "p1"))))]
         s2.nonblocking()?
             .ok_or(io::Error::from(io::ErrorKind::Unsupported))?;
@@ -153,6 +157,10 @@ where
         // thereby claiming exclusive interest in all received data.
         // see https://man7.org/linux/man-pages/man7/socket.7.html#:~:text=SO_REUSEADDR
         s2.set_reuse_address(true)?;
+        #[cfg_attr(
+            all(has_bool_to_result, not(unstable_bool_to_result)),
+            allow(clippy::incompatible_msrv, reason = "stable since 1.98.0")
+        )] // silenced via cfg_attr so we find this when we support stable
         s2.reuse_address()?
             .ok_or(io::Error::from(io::ErrorKind::Unsupported))?;
 

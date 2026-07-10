@@ -36,7 +36,7 @@
 //! > This crate makes use of the following experimental features:
 //! >
 //! > - [`#![feature(never_type)]`](https://github.com/rust-lang/rust/issues/35121) [final stages of stabilisation]
-//! > - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [stablisation targetted 1.98.0)]
+//! > - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [stabilisation targeted 1.98.0]
 //! >
 //! > This list includes any unstable features used by direct & transitive dependencies (currently, none).
 //! >

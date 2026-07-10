@@ -41,13 +41,13 @@ them. Realistically, however, they will be stable while I allow this API to go t
 > This crate makes use of the following experimental features:
 >
 > - [`#![feature(never_type)]`](https://github.com/rust-lang/rust/issues/35121) [final stages of stabilisation]
-> - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [in FCP as of 2026-04-25]
+> - [`#![feature(bool_to_result)]`](https://github.com/rust-lang/rust/issues/142748) [stablisation targetted 1.98.0)]
 >
 > This list includes any unstable features used by direct & transitive dependencies (currently, none).
 >
 > Both are so close to being part of stable rust that I chose to use them here.
 
-You do not need to enable these in your own code, the list is for information only.
+You do not need to enable these in your own code, the list is for information only. But currently you do need to use nightly to take advantage of this crate.
 
 ### Stability guarantees
 

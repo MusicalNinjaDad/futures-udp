@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7.0.0
     - name: install tools
-      uses: taiki-e/install-action@v2.83.3
+      uses: taiki-e/install-action@v2.83.4
       with:
         tool: |
           jaq
@@ -76,7 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.0
       - name: install tools
-        uses: taiki-e/install-action@v2.83.3
+        uses: taiki-e/install-action@v2.83.4
         with:
           tool: parse-changelog
       - name: publish release

@@ -27,4 +27,4 @@ futures = { version = "0.3.32", features = ["async-await"] }
 futures-net = { version = "0.6.0", default-features = true }
 
 [build-dependencies]
-build_safely = "0.5.2"
+build_safely = "0.6.0"

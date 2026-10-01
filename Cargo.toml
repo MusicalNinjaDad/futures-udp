@@ -13,18 +13,18 @@ license = "MIT"
 rust-version = "1.90.0"
 
 [dependencies]
-futures = { version = "0.3.32", default-features = false }
+futures = { version = "0.3.34", default-features = false }
 futures-net = { version = "0.6.0", default-features = false }
 
 # feature "all" enables the call to `nonblocking`, which is unavailable on some platforms.
 # That call is gated in our code.
 # Make sure to temporarily remove "all", check for new failure sites and gate them appropriately
 # when changing any code calling socket2 functionality.
-socket2 = { version = "0.6.3", features = ["all"] }
+socket2 = { version = "0.6.5", features = ["all"] }
 
 [dev-dependencies]
 futures = { version = "0.3.32", features = ["async-await"] }
 futures-net = { version = "0.6.0", default-features = true }
 
 [build-dependencies]
-build_safely = "0.5.2"
+build_safely = "0.6.1"
